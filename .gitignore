@@ -16,6 +16,11 @@
 *.DS_Store
 ._*
 
+SkillFactoryCSharp8Files/*.DS_Store
+SkillFactoryCSharp8Files/._*
+SkillFactoryCSharp8Files/bin
+SkillFactoryCSharp8Files/obj
+
 # Mono auto generated files
 mono_crash.*
 
