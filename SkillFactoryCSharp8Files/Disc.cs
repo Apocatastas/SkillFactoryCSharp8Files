@@ -3,7 +3,14 @@ namespace SkillFactoryCSharp8Files
 {
     public class Disc
     {
-        public string Name { get; }
+        public enum DriveType 
+        {
+            USB,
+            HDD,
+            CD
+        }
+
+    public string Name { get; }
         public long Volume { get; }
         public long FreeSpace { get; }
 
