@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 class Program
 {
@@ -13,21 +14,21 @@ class Program
     {
         try
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(@"/Users/apocatastas" /* Или С:\\ для Windows */ );
-            if (dirInfo.Exists)
-            {
-                Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
-            }
-            DirectoryInfo dirInfoNew = new DirectoryInfo(@"/Users/apocatastas/NewFolder");
+
+            DirectoryInfo dirInfoNew = new DirectoryInfo(@"/Users/apocatastas/Desktop/testFolder");
             if (!dirInfoNew.Exists)
                 dirInfoNew.Create();
 
-            Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+
+            string newPath = "/Users/apocatastas/Library/Mobile Documents/.Trash/";
+
+            if (dirInfoNew.Exists && !Directory.Exists(newPath))
+               dirInfoNew.MoveTo(newPath);
 
 
-            dirInfoNew.Delete(true); // Удаление со всем содержимым
-            Console.WriteLine("Каталог удален");
-            Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+           // dirInfoNew.Delete(true); // Удаление со всем содержимым
+            Console.WriteLine("Каталог перемещен в корзину");
+            
         }
         catch (Exception e)
         {
