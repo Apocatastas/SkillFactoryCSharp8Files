@@ -11,13 +11,25 @@ class Program
 
     static void ObjectCounter()
     {
-        string dirName = @"/";
-        string[] dirs = Directory.GetDirectories(dirName);
-        string[] files = Directory.GetFiles(dirName);
-        int totalDirs = dirs.Length;
-        int totalFiles = files.Length;
-        Console.WriteLine("Папок: {0}, файлов: {1}, всего объектов: {2}",totalDirs,totalFiles,totalDirs+totalFiles);
-        Console.ReadKey();
+        try
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(@"/Users/apocatastas" /* Или С:\\ для Windows */ );
+            if (dirInfo.Exists)
+            {
+                Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+            }
+            DirectoryInfo dirInfoNew = new DirectoryInfo(@"/Users/apocatastas/NewFolder");
+            if (!dirInfoNew.Exists)
+                dirInfoNew.Create();
+
+            Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+     Console.ReadKey();
 
     }
 
