@@ -23,6 +23,11 @@ class Program
                 dirInfoNew.Create();
 
             Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+
+
+            dirInfoNew.Delete(true); // Удаление со всем содержимым
+            Console.WriteLine("Каталог удален");
+            Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
         }
         catch (Exception e)
         {
