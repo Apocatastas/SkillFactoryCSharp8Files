@@ -1,43 +1,31 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 
-class Program
+class BinaryExperiment
 {
-    
-    static void Main(string[] args)
-    {
-        string filePath = @"/Users/apocatastas/Projects/SkillFactoryCSharp8Files/SkillFactoryCSharp8Files/Program.cs"; // Укажем путь
+    const string BinaryFilePath = "/Users/apocatastas/Desktop/BinaryFile.bin";
 
-        AddLastRunTimecode(filePath);
-        ShowSelfContent(filePath);
-        
+    static void Main()
+    {
+        ReadValues();
+
         Console.ReadKey();
     }
 
-    static void ShowSelfContent(string filePath)
+    static void ReadValues()
     {
+     
+        string StringValue;
+     
 
-        
-        // Откроем файл и прочитаем его содержимое
-        using (StreamReader sr = File.OpenText(filePath))
+        if (File.Exists(BinaryFilePath))
         {
-            string str = "";
-            while ((str = sr.ReadLine()) != null)
-                Console.WriteLine(str);
+            using (BinaryReader reader = new BinaryReader(File.Open(BinaryFilePath, FileMode.Open)))
+            {
+                StringValue = reader.ReadString();
+            }
+
+            Console.WriteLine(StringValue);
         }
     }
-
-    static void AddLastRunTimecode(string filePath)
-    {
-
-        using (StreamWriter sw = File.AppendText(filePath))
-
-        {
-            sw.WriteLine($"// Время запуска: {DateTime.Now}");
-        }
-    }
-          
-
-    
 }
