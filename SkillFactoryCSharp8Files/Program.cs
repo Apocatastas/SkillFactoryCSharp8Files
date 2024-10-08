@@ -1,38 +1,57 @@
 ﻿using System;
 using System.IO;
-
-class BinaryExperiment
+using System.Text.Json;
+namespace Serialization
 {
-    const string BinaryFilePath = "/Users/apocatastas/Desktop/BinaryFile.bin";
 
-    static void Main()
+
+    [Serializable]
+    public class Contact
     {
-        WriteValues();
-        ReadValues();
+        public string Name { get; set; }
+        public long PhoneNumber { get; set; }
+        public string Email { get; set; }
 
-        Console.ReadKey();
-    }
-
-    static void WriteValues()
-    {
-        using (BinaryWriter writer = new BinaryWriter(File.Open(BinaryFilePath, FileMode.Open)))
-            writer.Write($"Файл изменен {DateTime.Now} на компьютере c ОС {Environment.OSVersion}");
-    }
-
-    static void ReadValues()
-    {
-     
-        string StringValue;
-     
-
-        if (File.Exists(BinaryFilePath))
+        public Contact(string name, long phoneNumber, string email)
         {
-            using (BinaryReader reader = new BinaryReader(File.Open(BinaryFilePath, FileMode.Open)))
-            {
-                StringValue = reader.ReadString();
-            }
+            Name = name;
+            PhoneNumber = phoneNumber;
+            Email = email;
+        }
 
-            Console.WriteLine(StringValue);
+        public void Serialize()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var jsonString = JsonSerializer.Serialize(this, options);
+            File.WriteAllText("contact.json", jsonString);
+            Console.WriteLine("Объект сериализован");
+        }
+
+        public void Deserialize()
+        {
+            var jsonString = File.ReadAllText("contact.json");
+            var newcontact = JsonSerializer.Deserialize<Contact>(jsonString);
+            Console.WriteLine("Объект десериализован");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Объект для сериализации
+            var contact = new Contact("Vasya", 79992345678, "email@server.ru");
+            Console.WriteLine("Объект создан");
+
+            contact.Serialize();
+            contact.Deserialize();
+            Console.WriteLine(contact.Name);
+            Console.WriteLine(contact.PhoneNumber);
+            Console.WriteLine(contact.Email);
+            Console.ReadKey();
+
+
+
         }
     }
 }
