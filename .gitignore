@@ -13,9 +13,11 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# Mac filesystem specific
 *.DS_Store
 ._*
 
+# Mac filesystem specific for homework
 SkillFactoryCSharp8Files/*.DS_Store
 SkillFactoryCSharp8Files/._*
 SkillFactoryCSharp8Files/bin
