@@ -21,6 +21,27 @@ SkillFactoryCSharp8Files/._*
 SkillFactoryCSharp8Files/bin
 SkillFactoryCSharp8Files/obj
 
+SkillFactoryCSharp8Files/Task1/*.DS_Store
+SkillFactoryCSharp8Files/Task1/._*
+SkillFactoryCSharp8Files/Task1/bin
+SkillFactoryCSharp8Files/Task1/obj
+
+SkillFactoryCSharp8Files/Task2/*.DS_Store
+SkillFactoryCSharp8Files/Task2/._*
+SkillFactoryCSharp8Files/Task2/bin
+SkillFactoryCSharp8Files/Task2/obj
+
+SkillFactoryCSharp8Files/Task3/*.DS_Store
+SkillFactoryCSharp8Files/Task3/._*
+SkillFactoryCSharp8Files/Task3/bin
+SkillFactoryCSharp8Files/Task3/obj
+
+SkillFactoryCSharp8Files/Task4/*.DS_Store
+SkillFactoryCSharp8Files/Task4/._*
+SkillFactoryCSharp8Files/Task4/bin
+SkillFactoryCSharp8Files/Task4/obj
+
+
 # Mono auto generated files
 mono_crash.*
 
