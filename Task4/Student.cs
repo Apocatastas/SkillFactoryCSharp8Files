@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Text.Json;
+using static System.Formats.Asn1.AsnWriter;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Xml.Linq;
 
 namespace Task4
 {
@@ -20,6 +23,14 @@ namespace Task4
             Group = group;
             DateOfBirth = date;
             AverageScore = score;
+        }
+
+        public Student()
+        {
+            Name = "";
+            Group = "";
+            DateOfBirth = DateTime.Now;
+            AverageScore = 0;
         }
 
         public void Serialize(string path)
