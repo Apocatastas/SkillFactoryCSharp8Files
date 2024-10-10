@@ -3,10 +3,6 @@ using System.Reflection;
 
 
 /// <summary>
-/// В папке проекта есть папка Resources со старыми файлами, на ней будем проверять работу программы.
-/// Если что-то пойдёт не так - есть бэкап этой папки, чтобы не искать старые файлы каждый раз
-/// path = @"/Users/apocatastas/Projects/SkillFactoryCSharp8Files/Task1/Resources"
-///
 /// Напишите программу, которая чистит нужную нам папку от файлов  и папок,
 /// которые не использовались более 30 минут 
 /// На вход программа принимает путь до папки. 
@@ -29,7 +25,7 @@ class Program
         string path = GetPath();
         DirectoryInfo dir = new DirectoryInfo(path);
         RemoveOldFiles(dir);
-        Console.WriteLine("Удаление файлов старше 30 минут закончено");
+        Console.WriteLine("Удаление файлов и папок старше 30 минут закончено");
         Console.ReadKey();
     }
 
@@ -45,7 +41,7 @@ class Program
             if (testDir.Exists)
             {
                 itsOK = true;
-                Console.WriteLine("Папка найдена, приступаем к очистке файлов старше 30 минут");
+                Console.WriteLine("Папка найдена, приступаем к очистке файлов и папок старше 30 минут");
             }
             else Console.WriteLine("Не удалось найти такую папку, попробуйте другой адрес");
         }
@@ -57,32 +53,56 @@ class Program
 
     static void RemoveOldFiles(DirectoryInfo dir)
     {
-        try
+        if (dir.Exists)
         {
-
-            FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo f in files)
+            try
             {
-                if (f.CreationTime < DateTime.Now.Add(new TimeSpan(0, 0, -30, 0)))
+
+                FileInfo[] files = dir.GetFiles();
+                Console.WriteLine("/---------------------/");
+                Console.WriteLine("Работаем с папкой {0}, доступ {1}", dir.Name, dir.LastAccessTime);
+                foreach (FileInfo f in files)
                 {
-                    f.Delete();
+
+                    if (f.LastAccessTime < DateTime.Now.Add(new TimeSpan(0, 0, -30, 0)))
+                    {
+                        Console.WriteLine("Файл {0} удалён - доступ {1}, сейчас {2}", f.Name, f.LastAccessTime, DateTime.Now.Add(new TimeSpan(0, 0, -30, 0)));
+                        f.Delete();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Файл {0} оставили - доступ {1}, он новый", f.Name, f.LastAccessTime);
+
+                    }
+                }
+
+                DirectoryInfo[] dirs = dir.GetDirectories();  // Получим все директории внутри папки
+
+                foreach (DirectoryInfo d in dirs)
+                {
+                    if (d.LastAccessTime < DateTime.Now.Add(new TimeSpan(0, 0, -30, 0)))
+                    {
+                        d.Delete(true);
+                        Console.WriteLine("Папка {0} удалена", d.Name);
+
+                    }
+
+                    else
+                        Console.WriteLine("Папку {0} оставили, она новая, доступ {1}", d.Name, d.LastAccessTime);
+                    RemoveOldFiles(d);
+
+
                 }
             }
 
-            DirectoryInfo[] dirs = dir.GetDirectories();  // Получим все директории внутри папки
 
-            foreach (DirectoryInfo d in dirs)
+
+            catch (Exception e)
             {
-                RemoveOldFiles(d);
+                Console.WriteLine(e.Message);
             }
 
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
-
-
 
     }
 
